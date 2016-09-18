@@ -4,6 +4,7 @@ from .update_registry_cmd import SbHighlightUndefinedStepsCommand
 from .navigate_step_cmd import SbListStepsCommand
 from .navigate_step_cmd import SbGotoStepDefinitionCommand
 from .navigate_step_cmd import SbFindAllStepReferencesCommand
+from .navigate_step_cmd import SbGotoStepReferenceCommand
 from .insert_step_cmd import SbInsertNewStepCommand
 from .incorrect_conf_cmd import SbIncorrectConfigurationCommand
 from .run_behave_cmd import SbRunBehaveCommand
@@ -18,6 +19,7 @@ _all__ = [
     'SbListStepsCommand',
     'SbGotoStepDefinitionCommand',
     'SbFindAllStepReferencesCommand',
+    'SbGotoStepReferenceCommand',
     'SbInsertNewStepCommand',
     'SbIncorrectConfigurationCommand',
     'SbRunBehaveCommand',

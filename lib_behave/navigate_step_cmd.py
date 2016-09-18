@@ -84,11 +84,31 @@ class SbFindAllStepReferencesCommand(sublime_plugin.TextCommand):
         else:
             contents = 'No step references found\n'
 
-        panel = self.view.window().create_output_panel('behave_refs')
+        panel = self.view.window().create_output_panel('behave.refs')
+        panel.set_syntax_file('Packages/SublimeBehave/Find Step References Results.tmLanguage')
         panel.run_command('append', {'characters': contents,
-                                     'scroll_to_end': True})
+                                     'scroll_to_end': False})
         self.view.window().run_command("show_panel",
-                                       {"panel": "output.behave_refs"})
+                                       {"panel": "output.behave.refs"})
 
     def is_enabled(self):
         return is_step_file_in_project(self.view)
+
+class SbGotoStepReferenceCommand(sublime_plugin.TextCommand):
+    def __init__(self, view):
+        super(SbGotoStepReferenceCommand, self).__init__(view)
+
+    def run(self, edit):
+        line_no = self.view.rowcol(self.view.sel()[0].begin())[0] + 1
+        location = self.view.substr(get_phrase_from_line(self.view, line_no))
+        root = get_project_root(self.view.window())
+
+        self.view.window().open_file(os.path.join(root, location), 
+                                     sublime.ENCODED_POSITION)
+
+    def is_enabled(self):
+        try:
+            return self.view.score_selector(self.view.sel()[0].begin(), 
+                                            'sublime.behave.find.results') > 0
+        except IndexError:
+            return False

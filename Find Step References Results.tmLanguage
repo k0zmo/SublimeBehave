@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+    <key>fileTypes</key>
+    <array>
+    </array>
+    <key>name</key>
+    <string>Find Step References Results</string>
+    <key>patterns</key>
+    <array>
+    </array>
+    <key>scopeName</key>
+    <string>sublime.behave.find.results</string>
+</dict>
+</plist>
