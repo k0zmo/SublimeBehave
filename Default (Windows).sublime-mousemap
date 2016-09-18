@@ -1,0 +1,8 @@
+[
+  {
+    "button": "button1",
+    "count": 1,
+    "modifiers": ["ctrl"],
+    "press_command": "sb_goto_step_definition"
+  }
+]

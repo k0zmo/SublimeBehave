@@ -1,0 +1,30 @@
+[
+  {
+    "caption": "Behave: Update all step definitions",
+    "command": "sb_update_all_step_definitions"
+  },
+  {
+    "caption": "Behave: Update step usages for current feature file",
+    "command": "sb_update_step_usages" 
+  },
+  {
+    "caption": "Behave: Highlight undefined steps",
+    "command": "sb_highlight_undefined_steps" 
+  },
+  {
+    "caption": "Behave: List all defined steps",
+    "command": "sb_list_steps" 
+  },
+  {
+    "caption": "Behave: Go to step definition",
+    "command": "sb_goto_step_definition"
+  },
+  {
+    "caption": "Behave: Insert new step",
+    "command": "sb_insert_new_step" 
+  },
+  {
+    "caption": "Behave: Configure project",
+    "command": "sb_incorrect_configuration"
+  }
+]

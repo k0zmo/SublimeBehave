@@ -1,0 +1,10 @@
+[{
+  "caption": "SublimeBehave",
+  "id": "sb_context",
+  "children": [
+    {
+      "caption": "Goto Step Function",
+      "command": "sb_goto_step_definition"
+    }
+  ]
+}]

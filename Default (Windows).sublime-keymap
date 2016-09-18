@@ -1,0 +1,10 @@
+[
+  {
+    "command": "sb_list_steps",
+    "keys": ["ctrl+alt+shift+l"]
+  },
+  {
+    "command": "sb_insert_new_step",
+    "keys": ["ctrl+alt+shift+i"]
+  }
+]
