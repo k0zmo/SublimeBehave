@@ -4,15 +4,14 @@ import sublime
 import shutil
 
 class BehaveCommand(object):
-    ERROR_PATTERN = re.compile('ParseError|ConfigError|FileNotFoundError|\
-InvalidFileLocationError|InvalidFilenameError|Exception')
+    ERROR_PATTERN = re.compile('ParseError|ConfigError|FileNotFoundError|InvalidFileLocationError|InvalidFilenameError|Exception')
 
-    def run(self, cwd, *args):
+    def run(self, cwd, *args, **kwargs):
         command = tuple(self.behave_command) + \
             tuple(arg for arg in args if arg)
-        return self._launch_process(cwd, command)
+        return self._launch_process(cwd, command, **kwargs)
 
-    def _launch_process(self, cwd, command):
+    def _launch_process(self, cwd, command, append_fun=None):
         startupinfo = None
         if sublime.platform() == 'windows':
             # Prevent Windows from opening a console when starting a process
@@ -24,6 +23,11 @@ InvalidFileLocationError|InvalidFilenameError|Exception')
                                    universal_newlines=True,
                                    cwd=cwd,
                                    startupinfo=startupinfo)
+
+        if append_fun:
+            for line in process.stdout:
+                append_fun(line)
+
         stdout, _ = process.communicate()
 
         if self.ERROR_PATTERN.match(stdout):

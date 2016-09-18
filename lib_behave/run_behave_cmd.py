@@ -21,14 +21,15 @@ class SbRunBehaveCommand(sublime_plugin.WindowCommand):
                 file_name = os.path.relpath(view.file_name(), root)
                 feature_files.append('{}:{}'.format(file_name, line_no))
 
-        args = ['--no-skipped'] + feature_files
-        out = BehaveCommand().run(root, *args)
-
         panel = self.window.create_output_panel('behave')
-        panel.run_command('append', {'characters': out + '\n',
-                                     'scroll_to_end': True})
-
         self.window.run_command("show_panel", {"panel": "output.behave"})
+
+        def append_fun(line):
+            panel.run_command('append', {'characters': line,
+                                         'scroll_to_end': True})
+
+        args = ['--no-skipped'] + feature_files
+        out = BehaveCommand().run(root, *args, append_fun=append_fun)
 
     def is_enabled(self):
         return get_project_root(self.window) is not None
