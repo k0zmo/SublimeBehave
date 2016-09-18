@@ -5,6 +5,10 @@
     {
       "caption": "Goto Step Function",
       "command": "sb_goto_step_definition"
+    },
+    {
+      "caption": "Run behave",
+      "command": "sb_run_behave",
     }
   ]
 }]

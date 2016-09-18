@@ -26,5 +26,9 @@
   {
     "caption": "Behave: Configure project",
     "command": "sb_incorrect_configuration"
-  }
+  },
+  {
+    "caption": "Behave: Run behave",
+    "command": "sb_run_behave"
+  }    
 ]

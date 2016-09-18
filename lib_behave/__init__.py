@@ -5,6 +5,7 @@ from .navigate_step_cmd import SbListStepsCommand
 from .navigate_step_cmd import SbGotoStepDefinitionCommand
 from .insert_step_cmd import SbInsertNewStepCommand
 from .incorrect_conf_cmd import SbIncorrectConfigurationCommand
+from .run_behave_cmd import SbRunBehaveCommand
 
 from .update_registry_cmd import SbStepRegistryEventListener
 from .auto_completion import SbAutoCompletionStepEventListener
@@ -17,6 +18,7 @@ _all__ = [
     'SbGotoStepDefinitionCommand',
     'SbInsertNewStepCommand',
     'SbIncorrectConfigurationCommand',
+    'SbRunBehaveCommand',
     'SbStepRegistryEventListener',
     'SbAutoCompletionStepEventListener'
 ]
