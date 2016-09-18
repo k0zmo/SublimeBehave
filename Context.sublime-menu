@@ -1,18 +1,27 @@
-[{
-  "caption": "SublimeBehave",
-  "id": "sb_context",
-  "children": [
-    {
-      "caption": "Goto Step Definition",
-      "command": "sb_goto_step_definition"
-    },
-    {
-      "caption": "Find All Step References",
-      "command": "sb_find_all_step_references"
-    },
-    {
-      "caption": "Run Behave",
-      "command": "sb_run_behave",
-    }
-  ]
-}]
+[
+  {
+    "caption": "SublimeBehave",
+    "id": "sb_context",
+    "children": [
+      {
+        "caption": "Goto Step Definition",
+        "command": "sb_goto_step_definition"
+      },
+      {
+        "caption": "Find All Step References",
+        "command": "sb_find_all_step_references"
+      },
+      {
+        "caption": "Goto Reference",
+        "command": "sb_goto_step_reference"
+      },
+      {
+        "caption": "-"
+      },
+      {
+        "caption": "Run Behave",
+        "command": "sb_run_behave",
+      }
+    ]
+  }
+]

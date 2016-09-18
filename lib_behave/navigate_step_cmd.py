@@ -112,3 +112,6 @@ class SbGotoStepReferenceCommand(sublime_plugin.TextCommand):
                                             'sublime.behave.find.results') > 0
         except IndexError:
             return False
+
+    def is_visible(self):
+        return self.is_enabled()
