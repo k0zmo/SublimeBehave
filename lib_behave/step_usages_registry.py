@@ -119,4 +119,9 @@ class StepUsagesRegistry:
             return None
         return (step_usage.def_file_name, step_usage.def_line)
 
+    def get_step_references(self, file_name, line_no):
+        return [(u.file_name, u.line) for values in self.step_usages.values() 
+                                      for u in values
+                if u.def_file_name == file_name and u.def_line == line_no]
+
 step_usages_registry = StepUsagesRegistry()

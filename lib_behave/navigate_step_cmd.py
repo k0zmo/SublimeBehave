@@ -6,6 +6,7 @@ from .step_registry import step_registry
 from .step_usages_registry import step_usages_registry
 from .utils import get_project_root, \
     is_feature_file_in_project, \
+    is_step_file_in_project, \
     get_phrase_from_line
 
 class SbListStepsCommand(sublime_plugin.WindowCommand):
@@ -62,3 +63,32 @@ class SbGotoStepDefinitionCommand(sublime_plugin.TextCommand):
 
     def is_enabled(self):
         return is_feature_file_in_project(self.view)
+
+class SbFindAllStepReferencesCommand(sublime_plugin.TextCommand):
+    '''
+    Finds all references (in .feature files) for selected step definition
+    '''
+    def __init__(self, view):
+        super(SbFindAllStepReferencesCommand, self).__init__(view)
+
+    def run(self, edit):
+        root = get_project_root(self.view.window())
+        file_name = os.path.relpath(self.view.file_name(), root)
+        line_no = self.view.rowcol(self.view.sel()[0].begin())[0] + 1
+
+        refs = step_usages_registry.get_step_references(file_name, line_no)
+        if len(refs) > 0:
+            contents = 'Step references:\n'
+            for ref in refs:
+                contents += '  {}:{}\n'.format(ref[0], ref[1])
+        else:
+            contents = 'No step references found\n'
+
+        panel = self.view.window().create_output_panel('behave_refs')
+        panel.run_command('append', {'characters': contents,
+                                     'scroll_to_end': True})
+        self.view.window().run_command("show_panel",
+                                       {"panel": "output.behave_refs"})
+
+    def is_enabled(self):
+        return is_step_file_in_project(self.view)

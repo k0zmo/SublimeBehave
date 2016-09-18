@@ -20,6 +20,10 @@
     "command": "sb_goto_step_definition"
   },
   {
+    "caption": "Behave: Find all step references",
+    "command": "sb_find_all_step_references"
+  },
+  {
     "caption": "Behave: Insert new step",
     "command": "sb_insert_new_step" 
   },
