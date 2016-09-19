@@ -84,7 +84,7 @@ class SbFindAllStepReferencesCommand(sublime_plugin.TextCommand):
             contents = 'No step references found'
 
         panel = self.view.window().create_output_panel('behave.refs')
-        panel.set_syntax_file('Packages/SublimeBehave/Find Step References Results.tmLanguage')
+        panel.set_syntax_file('Packages/SublimeBehave/Find Step References Results.hidden-tmLanguage')
         panel.run_command('append', {'characters': contents,
                                      'scroll_to_end': False})
         self.view.window().run_command("show_panel",
