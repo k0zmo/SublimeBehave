@@ -6,5 +6,16 @@
   {
     "command": "sb_insert_new_step",
     "keys": ["ctrl+alt+shift+i"]
+  },
+  {
+    "command": "sb_goto_step_reference",
+    "keys": ["enter"],
+    "context": [
+      {
+        "key": "selector",
+        "operator": "equal",
+        "operand": "sublime.behave.find.results"
+      }
+    ]
   }
 ]
