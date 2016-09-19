@@ -29,7 +29,7 @@ class StepRegistry:
         self.step_defs = defaultdict(list)
         self.directory = ''
         # dont include 'GENERIC' steps since behave does appends them to every other
-        self.step_type_header = re.compile(r'(GIVEN|WHEN|THEN) STEP DEFINITIONS\[(\d)\]:')
+        self.step_type_header = re.compile(r'(GIVEN|WHEN|THEN) STEP DEFINITIONS\[(\d+)\]:')
         self.step_pattern = re.compile(r'\s{2}(.*\s)\s*# (.*):(\d+)')
         self.order = ['given', 'then', 'when']
 
