@@ -8,6 +8,22 @@
     <string>Find Step References Results</string>
     <key>patterns</key>
     <array>
+        <dict>
+            <key>comment</key>
+            <string>Nothing found</string>
+            <key>match</key>
+            <string>^No step references found$</string>
+            <key>name</key>
+            <string>keyword.control.c</string>
+        </dict>
+        <dict>
+            <key>comment</key>
+            <string>Title found</string>
+            <key>match</key>
+            <string>^Step references:$</string>
+            <key>name</key>
+            <string>string.quoted.double.c</string>
+        </dict>
     </array>
     <key>scopeName</key>
     <string>sublime.behave.find.results</string>
