@@ -79,10 +79,9 @@ class SbFindAllStepReferencesCommand(sublime_plugin.TextCommand):
         refs = step_usages_registry.get_step_references(file_name, line_no)
         if len(refs) > 0:
             contents = 'Step references:\n'
-            for ref in refs:
-                contents += '  {}:{}\n'.format(ref[0], ref[1])
+            contents += '\n'.join('  {}:{}'.format(ref[0], ref[1]) for ref in refs)
         else:
-            contents = 'No step references found\n'
+            contents = 'No step references found'
 
         panel = self.view.window().create_output_panel('behave.refs')
         panel.set_syntax_file('Packages/SublimeBehave/Find Step References Results.tmLanguage')
@@ -102,9 +101,9 @@ class SbGotoStepReferenceCommand(sublime_plugin.TextCommand):
         line_no = self.view.rowcol(self.view.sel()[0].begin())[0] + 1
         location = self.view.substr(get_phrase_from_line(self.view, line_no))
         root = get_project_root(self.view.window())
-
-        self.view.window().open_file(os.path.join(root, location), 
-                                     sublime.ENCODED_POSITION)
+        if line_no > 1:
+            self.view.window().open_file(os.path.join(root, location), 
+                                         sublime.ENCODED_POSITION)
 
     def is_enabled(self):
         try:
