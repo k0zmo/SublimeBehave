@@ -82,14 +82,14 @@ class StepRegistry:
         if step_def is None:
             return None
         return next((x for x in step_def
-                     if x.line == line and x.file_name == file_name))
+                     if x.line == line and x.file_name == file_name), None)
 
     def get_definition_by_phrase(self, step_type, phrase):
         step_def = self.step_defs.get(step_type)
         if step_def is None:
             return None
         return next((x for x in step_def
-                     if x.phrase.find(phrase[1:-1]) != -1))
+                     if x.phrase.find(phrase[1:-1]) != -1), None)
 
     def get_definition_by_index(self, index):
         tmp = 0
@@ -105,7 +105,7 @@ class StepRegistry:
 
     def __iter__(self):
         for step_type in self.order:
-            list_by_type = step_registry.step_defs.get(step_type)
+            list_by_type = self.step_defs.get(step_type)
             if list_by_type is None:
                 continue
             for step_def in list_by_type:
