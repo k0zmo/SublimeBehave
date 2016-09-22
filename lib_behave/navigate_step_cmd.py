@@ -7,7 +7,8 @@ from .step_usages_registry import step_usages_registry
 from .utils import get_project_root, \
     is_feature_file_in_project, \
     is_step_file_in_project, \
-    get_phrase_from_line
+    get_phrase_from_line, \
+    get_line_from_cursor
 
 class SbListStepsCommand(sublime_plugin.WindowCommand):
     '''
@@ -47,10 +48,10 @@ class SbGotoStepDefinitionCommand(sublime_plugin.TextCommand):
     def __init__(self, view):
         super(SbGotoStepDefinitionCommand, self).__init__(view)
 
-    def run(self, edit):
+    def run(self, edit, event):
         root = get_project_root(self.view.window())
         file_name = os.path.relpath(self.view.file_name(), root)
-        line_no = self.view.rowcol(self.view.sel()[0].begin())[0] + 1
+        line_no = get_line_from_cursor(self.view, event)
 
         result = step_usages_registry.get_step_definition(file_name, line_no)
         if result is None or result[1] == -1:
@@ -64,6 +65,9 @@ class SbGotoStepDefinitionCommand(sublime_plugin.TextCommand):
     def is_enabled(self):
         return is_feature_file_in_project(self.view)
 
+    def want_event(self):
+        return True
+
 class SbFindAllStepReferencesCommand(sublime_plugin.TextCommand):
     '''
     Finds all references (in .feature files) for selected step definition
@@ -71,10 +75,10 @@ class SbFindAllStepReferencesCommand(sublime_plugin.TextCommand):
     def __init__(self, view):
         super(SbFindAllStepReferencesCommand, self).__init__(view)
 
-    def run(self, edit):
+    def run(self, edit, event):
         root = get_project_root(self.view.window())
         file_name = os.path.relpath(self.view.file_name(), root)
-        line_no = self.view.rowcol(self.view.sel()[0].begin())[0] + 1
+        line_no = get_line_from_cursor(self.view, event)
 
         refs = step_usages_registry.get_step_references(file_name, line_no)
         if len(refs) > 0:
@@ -93,12 +97,15 @@ class SbFindAllStepReferencesCommand(sublime_plugin.TextCommand):
     def is_enabled(self):
         return is_step_file_in_project(self.view)
 
+    def want_event(self):
+        return True
+
 class SbGotoStepReferenceCommand(sublime_plugin.TextCommand):
     def __init__(self, view):
         super(SbGotoStepReferenceCommand, self).__init__(view)
 
-    def run(self, edit):
-        line_no = self.view.rowcol(self.view.sel()[0].begin())[0] + 1
+    def run(self, edit, event):
+        line_no = get_line_from_cursor(self.view, event)
         location = self.view.substr(get_phrase_from_line(self.view, line_no))
         root = get_project_root(self.view.window())
         if line_no > 1:
@@ -114,6 +121,9 @@ class SbGotoStepReferenceCommand(sublime_plugin.TextCommand):
 
     def is_visible(self):
         return self.is_enabled()
+
+    def want_event(self):
+        return True
 
 class SbShowDefinitionEventListener(sublime_plugin.EventListener):
     def on_hover(self, view, point, hover_zone):

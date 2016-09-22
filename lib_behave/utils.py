@@ -65,3 +65,7 @@ def _get_first_nonspace(phrase):
         else:
             break
     return margin
+
+def get_line_from_cursor(view, event):
+    pt = view.window_to_text((event["x"], event["y"]))
+    return view.rowcol(pt)[0] + 1
