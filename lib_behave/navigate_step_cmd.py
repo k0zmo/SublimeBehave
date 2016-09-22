@@ -114,3 +114,56 @@ class SbGotoStepReferenceCommand(sublime_plugin.TextCommand):
 
     def is_visible(self):
         return self.is_enabled()
+
+class SbShowDefinitionEventListener(sublime_plugin.EventListener):
+    def on_hover(self, view, point, hover_zone):
+        if not sublime.load_settings(
+                'SublimeBehave.sublime-settings').get('show_definitions'):
+            return
+        if hover_zone != sublime.HOVER_TEXT:
+            return
+        if not is_feature_file_in_project(view):
+            return
+
+        root = get_project_root(view.window())
+        file_name = os.path.relpath(view.file_name(), root)
+        line_no = view.rowcol(point)[0] + 1
+        result = step_usages_registry.get_step_definition(file_name, line_no)
+
+        if result is None or result[1] == -1:
+            return
+
+        def on_navigate(href):
+            view.window().open_file(href, sublime.ENCODED_POSITION)
+
+        file_location = '{}:{}'.format(os.path.join(root, result[0]), result[1])
+        disp_file_location = '{}:{}'.format(result[0], result[1])
+
+        # Same as in Default.symbol.py
+        content = '''
+            <body>
+              <style>
+                body {{
+                  font-family: sans-serif;
+                }}
+                h1 {{ 
+                  font-size: 1.1rem;
+                  font-weight: bold;
+                  margin: 0 0 0.25em 0;
+                }}
+                p {{
+                  font-size: 1.05rem;
+                  margin: 0;
+                }}
+              </style>
+              <h1>Definition:</h1>
+              <p><a href="{}">{}</a></p>
+            </body>
+        '''.format(file_location, disp_file_location)
+
+        view.show_popup(
+            content, 
+            flags=sublime.HIDE_ON_MOUSE_MOVE_AWAY,
+            location=point,
+            on_navigate=on_navigate,
+            max_width=1024)

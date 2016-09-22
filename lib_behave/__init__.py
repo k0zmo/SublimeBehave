@@ -11,6 +11,7 @@ from .run_behave_cmd import SbRunBehaveCommand
 
 from .update_registry_cmd import SbStepRegistryEventListener
 from .auto_completion import SbAutoCompletionStepEventListener
+from .navigate_step_cmd import SbShowDefinitionEventListener
 
 _all__ = [
     'SbUpdateAllStepDefinitionsCommand',
@@ -24,5 +25,6 @@ _all__ = [
     'SbIncorrectConfigurationCommand',
     'SbRunBehaveCommand',
     'SbStepRegistryEventListener',
-    'SbAutoCompletionStepEventListener'
+    'SbAutoCompletionStepEventListener',
+    'SbShowDefinitionEventListener'
 ]
